@@ -66,7 +66,7 @@ class Vocoder(nn.Module):
         )
         with cfg_ref.open() as file:
             cfg = OmegaConf.load(file)
-        checkpoint = torch.hub.load_state_dict_from_url(url)
+        checkpoint = torch.hub.load_state_dict_from_url(url, map_location=torch.device('cpu'))
         model = cls(**cfg.model)
         model.load_state_dict(checkpoint["model"])
         model.eval()
